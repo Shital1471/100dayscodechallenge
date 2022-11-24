@@ -1,5 +1,5 @@
 
-                                Java 2D Array
+                                                                        Java 2D Array
 
 Question:
 You are given a  2D array. An hourglass in an array is a portion shaped like this:
