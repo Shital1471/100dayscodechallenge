@@ -1,0 +1,147 @@
+                                                                       Java 1D Array
+Question:
+Let's play a game on an array! You're standing at index  of an -element array named . From some index  (where 0<=1<n), you can perform one of the following moves:
+
+Move Backward: If cell  exists and contains a , you can walk back to cell i-1 .
+Move Forward:
+   If cell i+1 contains a zero, you can walk to cell i+1.
+   If cell i+1 contains a zero, you can jump to cell i+leap.
+   If you're standing in cell n-1 or the value of , you can walk or jump off the end of the array and win the game.
+In other words, you can move from index i to index i+1,i-1, or i+leap  as long as the destination index is a cell containing a 0. If the destination index is greater than n-1, you win the game.
+
+Function Description
+
+Complete the canWin function in the editor below.
+
+canWin has the following parameters:
+
+ int leap: the size of the leap
+ int game[n]: the array to traverse
+Returns
+
+boolean: true if the game can be won, otherwise false
+
+Input Format
+
+The first line contains an integer,q, denoting the number of queries (i.e., function calls).
+The 2.q subsequent lines describe each query over two lines:
+
+1.The first line contains two space-separated integers describing the respective values of  and .
+2.The second line contains  space-separated binary integers (i.e., zeroes and ones) describing the respective values of game0 gam1,.....gamen-1 .
+Constraints
+ 1<=q<=500
+ 2<=n<=100
+ 0<=leap<=100
+ It is guaranteed that the value of game[0]is always 0.
+
+Sample Input
+
+STDIN           Function
+-----           --------
+4               q = 4 (number of queries)
+5 3             game[] size n = 5, leap = 3 (first query)
+0 0 0 0 0       game = [0, 0, 0, 0, 0]
+6 5             game[] size n = 6, leap = 5 (second query)
+0 0 0 1 1 1     . . .
+6 3
+0 0 1 1 1 0
+3 1
+0 1 0
+
+Sample Output
+
+YES
+YES
+NO
+NO
+Solution:
+import java.util.*;
+
+public class Solution {
+
+    public static boolean canWin(int i,int leap, int[] game) {  
+    
+    LinkedList<String> ll = new LinkedList<String>();
+    int[][] arr=new int[game.length][3];
+    
+    while(true){
+      if((i+leap)>=game.length){
+        //System.out.println("level0");
+        return true;
+      }
+      else if((i+1)>=game.length){
+          return true;
+      }
+      else if((arr[i][0]==0) && ((i+leap)<game.length) && game[i+leap]==0){
+        arr[i][0]=1;
+        ll.add(i+"l");
+        i=i+leap;
+        //System.out.println("level1");
+      }
+      else if((arr[i][1]==0) && ((i+1)<game.length) && game[i+1]==0){
+        arr[i][0]=1;
+        arr[i][1]=1;
+        ll.add(i+"f");
+        i=i+1;
+        //System.out.println("level2");
+      }
+      else if((arr[i][2]==0) && (i-1>=0) && game[i-1]==0){
+        arr[i][0]=1;
+        arr[i][1]=1;
+        arr[i][2]=1;
+        ll.add(i+"b");
+        i=i-1;
+       // System.out.println("level3");
+      }
+      else{
+        arr[i][0]=1;
+        arr[i][1]=1;
+        arr[i][2]=1;
+        
+        while(true){
+          if(ll.size()!=0){
+            //System.out.println("level4");
+            
+            String s1=ll.getLast();
+            String s2=s1.substring(0,s1.length()-1);
+            char c=s1.charAt(s1.length()-1);
+            
+            if(c=='b'){
+              //System.out.println("level5");
+              ll.removeLast();
+            }
+            else if(c=='f' || c=='l'){
+              //System.out.println("level6");
+              i=Integer.parseInt(s2);
+              ll.removeLast();
+              break;
+            }
+          }
+          else{
+            //System.out.println("level7");
+            return false;
+          }
+        }
+      }
+    } 
+  }
+
+    public static void main(String[] args) {
+         Scanner scan = new Scanner(System.in);
+    int q = scan.nextInt();
+
+    for(int j=0;j<q;j++) {
+      int n = scan.nextInt();
+      int leap = scan.nextInt();
+      
+      int[] game = new int[n];
+      for (int i = 0; i < n; i++) {
+        game[i] = scan.nextInt();
+      }
+      
+      System.out.println((canWin(0,leap, game))?"YES":"NO");
+    }
+
+    scan.close();
+    }
+}
