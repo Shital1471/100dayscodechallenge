@@ -1,5 +1,4 @@
-
-                                                                            Java MD5
+                                  Java MD5
 Question:
 MD5 (Message-Digest algorithm 5) is a widely-used cryptographic hash function with a 128-bit hash value. Here are some common uses for MD5:
 
