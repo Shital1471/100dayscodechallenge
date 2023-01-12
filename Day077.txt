@@ -1,4 +1,4 @@
-                                              Counting Valleys
+                                                                            Counting Valleys
 
 Question:
 An avid hiker keeps meticulous records of their hikes. During the last hike that took exactly  steps, for every step it was noted if it was an uphill, U , or a downhill, D step. Hikes always start and end at sea level, and each step 1up or down represents a  unit change in altitude. We define the following terms:
